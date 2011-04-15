@@ -26,6 +26,7 @@ SensorController::SensorController(Create *create, int speed, int interval) :
 
 	// Welcome VFF Algorithm
 	vffAI = VFF();
+	vffAI.run();
 }
 
 SensorController::~SensorController() {
@@ -37,17 +38,24 @@ void SensorController::run()
 	stopRequested = false;
 	while (stopRequested == false) {
 
-		heading = arduino_getHeading();
-		frontIR = arduino_getFrontIR();
-		leftIR = arduino_getLeftIR();
-		rightIR = arduino_getRightIR();
+//		if(create->arduino_active)
+//		{
+//			heading = arduino_getHeading();
+//			frontIR = arduino_getFrontIR();
+//			leftIR = arduino_getLeftIR();
+//			rightIR = arduino_getRightIR();
+//
+//
+//			Trafo2D point = create->movementTracker->transformation;
+//
+//			vffAI.run(rightIR, frontIR, leftIR, 0);
+//			vffAI.run();
+//		}
 		long x = create->movementTracker->x();
 		long y = create->movementTracker->y();
-		Trafo2D point = create->movementTracker->transformation;
-
-		printf("[SensorController] %d, %d\n", x, y);
+		printf("[SensorController] %d, %d\n", x/10, y/10);
 		//point.print();
-		printf("%f,%f\n", point.trans().x(), point.trans().y());
+		//printf("%f,%f\n", point.trans().x(), point.trans().y());
 
 		//vffAI.
 

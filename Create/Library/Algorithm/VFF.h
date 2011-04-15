@@ -35,6 +35,7 @@ public:
     ~VFF();
 
     void run();
+    void run(int ir0, int ir1, int ir2, int ir3);
     void createHashTables();
     void createHashTables( int numberOfSensors, int fieldOfView, int offSet );
 

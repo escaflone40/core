@@ -103,10 +103,10 @@ public:
 	QString stringSetting(QString key);
 	bool boolSetting(QString key);
 	QVariant getSetting(QString key);
-
+static int arduino_active;			//TODO: fail safe debug mode status
 
 private:
-	static int arduino_active;			//TODO: fail safe debug mode status
+
 	//void initCreate(QSettings *settings);
 
 public slots:

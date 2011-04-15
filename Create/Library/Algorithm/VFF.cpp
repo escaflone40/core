@@ -2,10 +2,24 @@
 
 VFF::VFF()
 {
+	// Width of grid
+	int width = 21;
+	// Instantiate a Grid object
+	hist = Grid( 15.0, width, 36.0 );
+	createHashTables();
 }
 
 VFF::~VFF()
 {
+}
+
+void VFF::run(int ir0, int ir1, int ir2, int ir3)
+{
+//	hist.updateCV( &sensor_0, 0.0, ir0 );
+	hist.updateCV( &sensor_45, 45.0, ir0*2.54 );
+	hist.updateCV( &sensor_90, 90.0, ir1*2.54 );
+	hist.updateCV( &sensor_135, 135.0, ir2*2.54);
+//	hist.updateCV( &sensor_180, 180.0, ss );
 }
 
 void VFF::run()
@@ -15,23 +29,23 @@ void VFF::run()
     //      errors.
     //		Clean all classes.
 
-    // Width of grid
-    int width = 21;
-
-    // Counter for general use
-    int programCounter = 0;
-
-    // Instantiate a Grid object
-    hist = Grid( 15.0, width, 45.0 );
+//    // Width of grid
+//    int width = 21;
+//
+//    // Counter for general use
+//    int programCounter = 0;
+//
+//    // Instantiate a Grid object
+//    hist = Grid( 15.0, width, 45.0 );
 
     // Create hash table of each sensor to speed up search
     // This will determine exactly which cells correspond to a given sensor
     // TODO: Document this function
     //createHashTables();
-    createHashTables( 5, 36, 0 );
+	//createHashTables( 5, 45, 0 );
 
     // 1D Vector used to save a snapshot of a grid to a file
-    vector<int> oneDHistogram;
+    //vector<int> oneDHistogram;
 
     ///////////////////////////////// HASH TABLE /////////////////////////////////////////
     //	vector< POINT > pp;
@@ -47,18 +61,18 @@ void VFF::run()
 
     ////////////////////////// TEST 360 SCAN /////////////////////////////////////////////
 //    	cout << hist << endl;
-//    	for(int ang = 18; ang < 343; ang += 36 )
+//    	for(int ang = 0; ang < 181; ang += 45 )
 //    	{
 //    		for( int i = RMin; i < 400; i++ )
 //    		{
 //    			hist.updateCertainValues( ang, (double)i );
 //    		}
 //    	}
-//
-//
-//    	cout << hist << endl;
-//
-//    	hist.buildBinaryHistogram();
+
+
+    	cout << hist << endl;
+
+    	//hist.buildBinaryHistogram();
 
     //////////////////////////////////////////////////////////////////////////////////////
 
@@ -78,30 +92,30 @@ void VFF::run()
      * A. Part
      */
 
-    int ss = 15;
-    for(int m = 0; m < 10;m++)
-    //while ( true )
-    {
-        // Get new values from the Arduino board
-        //Arduino.updateSerialData();
-
-        // Save values to an array
-        //s = Arduino.getSensorArray();
-//	cout << s.size() << endl;
-    ss = 15*(m+1);
-	if(1)   //( s.size() == 10 )
-	{
-		int ang = 18;
-		for(int i = 0; i < 10; i++)
-		{
-			if( i == 0 || i == 90 )
-				hist.updateCV( &sArray.at(i), ang, ss );
-			ang += 36;
-		}
-
-		//for(int i = 0; i < 10; i++)
-		//{
-			hist.updateForceField( &sArray );
+//    int ss = 15;
+//    for(int m = 0; m < 10;m++)
+//    //while ( true )
+//    {
+//        // Get new values from the Arduino board
+//        //Arduino.updateSerialData();
+//
+//        // Save values to an array
+//        //s = Arduino.getSensorArray();
+////	cout << s.size() << endl;
+//    ss = 15*(m+1);
+//	if(1)   //( s.size() == 10 )
+//	{
+//		int ang = 18;
+//		for(int i = 0; i < 10; i++)
+//		{
+//			if( i == 0 || i == 90 )
+//				hist.updateCV( &sArray.at(i), ang, ss );
+//			ang += 36;
+//		}
+//
+//		//for(int i = 0; i < 10; i++)
+//		//{
+//			hist.updateForceField( &sArray );
 		//}
 
         //TODO: (Check 's' size) Update Histogram counterclockwise
@@ -129,33 +143,33 @@ void VFF::run()
 		hist.updateForceField( &sensor_324);
 		*/
 
-	}
-	s.clear();
-        // Print a histogram image to a file
-        try
-        {
-        	//cout << hist << endl;
-            // Prepare a snapshot of a histogram
-            hist.buildBinaryHistogram();
-
-            // Request a copy
-            oneDHistogram = hist.getBinaryHistogram();
-
-            // Clear the vector for next reading
-            oneDHistogram.clear();
-
-            cout << hist << endl;
-
-        }
-        catch ( ... )
-        {
-            cerr << "*** Error while printing Histogram ***" << endl;
-        }
-
-        //boost::this_thread::sleep( boost::posix_time::milliseconds( 200 ) );
-        programCounter++;
-
-    }
+//	}
+//	s.clear();
+//        // Print a histogram image to a file
+//        try
+//        {
+//        	//cout << hist << endl;
+//            // Prepare a snapshot of a histogram
+//            hist.buildBinaryHistogram();
+//
+//            // Request a copy
+//            oneDHistogram = hist.getBinaryHistogram();
+//
+//            // Clear the vector for next reading
+//            oneDHistogram.clear();
+//
+//            cout << hist << endl;
+//
+//        }
+//        catch ( ... )
+//        {
+//            cerr << "*** Error while printing Histogram ***" << endl;
+//        }
+//
+//        //boost::this_thread::sleep( boost::posix_time::milliseconds( 200 ) );
+//        programCounter++;
+//
+//    }
 }
 
 void VFF::createHashTables()

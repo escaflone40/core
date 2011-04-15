@@ -36,13 +36,19 @@ JoystickView::JoystickView(JoystickView::JoystickMode mode, QWidget *parent) : Q
 	acceleration = JoystickView::JOYSTICK_ACCELERATION_INSTANT;
 	timer = new QTimer();
 	timer->setInterval(10);
+
+	timerAcc = new QTimer();
+	timerAcc->setInterval(5);
+
 	this->setMinimumSize(150,150);
 
 	connect(timer, SIGNAL(timeout()), this, SLOT(accelerate()));
+	//connect(timerAcc, SIGNAL(timeout()), this, SLOT(accelerate()));
 }
 
 JoystickView::~JoystickView() {
 	delete timer;
+	delete timerAcc;
 }
 
 void JoystickView::paintEvent(QPaintEvent *event)
@@ -113,6 +119,7 @@ void JoystickView::accelerate() {
 
 	} else {
 
+
 		if		(yokeX > 0.0) yokeX -= step;
 		else if	(yokeX < 0.0) yokeX += step;
 		if		(yokeY > 0.0) yokeY -= step;
@@ -130,6 +137,8 @@ void JoystickView::mousePressEvent(QMouseEvent *event)
 {
 	timer->stop();
 	mouseDown = true;
+	yokeX = 0;
+	yokeY = 0;
 	mouseMoveEvent(event);
 }
 

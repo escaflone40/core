@@ -46,6 +46,7 @@ private:
 	double yokeY;
 	bool mouseDown;
 	QTimer *timer;
+	QTimer *timerAcc;
 
 public:
 	enum JoystickMode { JOYSTICK_MODE_FREE, JOYSTICK_MODE_LOCKED } mode;

@@ -251,9 +251,9 @@ QGroupBox *Interface::createControlsExclusiveGroup()
 
 	// Joystick
 	joystick = new JoystickView(JoystickView::JOYSTICK_MODE_FREE);
-	joystick->acceleration = JoystickView::JOYSTICK_ACCELERATION_INSTANT;
-	joystickFluidController = new JoystickView(JoystickView::JOYSTICK_MODE_FREE);
-	joystickFluidController->acceleration = JoystickView::JOYSTICK_ACCELERATION_SLOWDOWN;
+	joystick->acceleration = JoystickView::JOYSTICK_ACCELERATION_SLOWDOWN;
+	//joystickFluidController = new JoystickView(JoystickView::JOYSTICK_MODE_FREE);
+	//joystickFluidController->acceleration = JoystickView::JOYSTICK_ACCELERATION_SLOWDOWN;
 
 	// Sliders
 //	sliderDistance = new QSlider();
